@@ -8,15 +8,15 @@
   actividad anterior, a fin de que sea web responsive. El mismo 
   además, deberá contener:
         - una barra de navegación que permita movernos por las 
-      páginas web del sitio,
+    páginas web del sitio,
         - un formulario de contacto (el mismo deberá incluir 
-      validaciones obligando que el usuario ingrese los datos 
-      obligatorios: apellido y nombre, mail y mensaje) y, 
-      verificar que el mail tenga el formato correcto.
+    validaciones obligando que el usuario ingrese los datos 
+    obligatorios: apellido y nombre, mail y mensaje) y, 
+    verificar que el mail tenga el formato correcto.
 
     Se valorará:
         - inclusión de todos los items mencionados en la 
-      consigna
+    consigna
         - aplicación de los contenidos teóricos desarrollados
         - creatividad en la implementación de la actividad 
         - funcionalidad del sitio web responsive solicitado
@@ -25,32 +25,75 @@
 -->
 
 <head>
-  <meta charset="UTF-8">
-  <title>Mi segunda página</title>
-  <link rel="stylesheet" href="estilos.css" type="text/css">
+    <meta charset="UTF-8">
+    <title>Blog - Federico Marquez</title>
+
+    <!-- CSS de Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <!-- Tag responsive de Bootstrap -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- CSS personal -->
+    <link rel="stylesheet" href="estilos.css" type="text/css">
 </head>
 
 <body>
-  <header>
-    <h1>Bienvenidos a mi primera página web</h1>
-  </header>
+    <header>
+        <h1 id="banner">Blog de un estudiante de ingeniería</h1>
+    </header>
 
-  <nav>
-    <ul>
-      <li class="seleccionado">Home</li>
-      <li><a href="programa-clip.html">Programa CLIP</a></li>
-    </ul>
-  </nav>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-  <main>
-    <p>Esta es mi primera página web.</p>
-    <p>Como la visitaron, les regalo una foto de un gatito:</p>
-    <img src="https://i.ytimg.com/vi/_7bFXWNfXTY/maxresdefault.jpg" alt="Foto de un gatito." height="360" width="640px">
-  </main>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link active" href="index.html">Home<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="programa-clip.html">Programa CLIP</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-  <footer>
-    <p><a href="sobre-mi.html">Sobre mí.</a> Copyright 2020</p>
-  </footer>
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <img src="https://i.ytimg.com/vi/_7bFXWNfXTY/maxresdefault.jpg" class="card-img-top" alt="Foto de un gatito.">
+                        <div class="card-body">
+                            <p class="card-text">Esta es mi primera página web.</p>
+                            <p class="card-text">Como la visitaron, les regalo una foto de un gatito:</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container-fluid bg-secondary border">
+            <p class="text-center text-light"><a class="text-light" href="sobre-mi.html">Sobre mí.</a> Copyright 2020</p>
+        </div>
+    </footer>
+
+    <!-- Dependencias de JavaScript de Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
