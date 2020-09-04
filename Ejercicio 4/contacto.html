@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Programa CLIP</title>
+    <title>Contacto</title>
 
     <!-- CSS de Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -32,12 +32,14 @@
                 <li class="nav-item">
                     <a class="nav-link" href="index.html">Home</a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link active" href="programa-clip.html">Programa CLIP<span
-                            class="sr-only">(current)</span></a>
+                <li class="nav-item">
+                    <a class="nav-link" href="programa-clip.html">Programa CLIP</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="contacto.html">Contacto</a>
+                    <a class="nav-link" href="adivinanza.html">Adivinanza</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link active" href="contacto.html">Contacto<span class="sr-only">(current)</span></a>
                 </li>
             </ul>
         </div>
@@ -46,16 +48,26 @@
     <main>
         <div class="container">
             <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">Programa CLIP</div>
-                        <div class="card-body">
-                            <p class="card-text">En este momento soy beneficiario del programa CLIP. Un programa de
-                                empleo e inserción
-                                laboral, que incluye una capacitación de desarrollador full-stack.</p>
-                            <a href="https://www.cba.gov.ar/programaclip/" class="btn btn-primary">Más información.</a>
+                <div class="bg-white border col-12">
+                    <form>
+                        <div class="form-group">
+                            <label>Dirección de correo electrónico:</label>
+                            <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="example@mail.com">
                         </div>
-                    </div>
+                        <div class="form-group">
+                            <label>Nombre:</label>
+                            <input type="text" class="form-control" placeholder="Fabián Andrade">
+                        </div>
+                        <div class="form-group">
+                            <label>Asunto:</label>
+                            <input type="text" class="form-control" placeholder="Asunto">
+                        </div>
+                        <div class="form-group">
+                            <label>Mensaje:</label>
+                            <textarea class="form-control" rows="3" placeholder="Escribe aquí tu mensaje."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success">Enviar.</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -63,7 +75,8 @@
 
     <footer>
         <div class="container-fluid bg-secondary border">
-            <p class="text-center text-light"><a class="text-light" href="sobre-mi.html">Sobre mí.</a> Copyright 2020</p>
+            <p class="text-center text-light"><a class="text-light" href="sobre-mi.html">Sobre mí.</a> Copyright 2020
+            </p>
         </div>
     </footer>
 
