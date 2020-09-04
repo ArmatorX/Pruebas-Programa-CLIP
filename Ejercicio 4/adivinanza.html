@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Adivinanza</title>
+
+    <!-- CSS de Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <!-- Tag responsive de Bootstrap -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- CSS personal -->
+    <link rel="stylesheet" href="estilos.css" type="text/css">
+</head>
+
+<body>
+    <header>
+        <h1 id="banner">Blog de un estudiante de ingeniería</h1>
+    </header>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="programa-clip.html">Programa CLIP</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link active" href="adivinanza.html">Adivinanza<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contacto.html">Contacto</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="bg-white border col-12 d-flex justify-content-center">
+                    <form id="formulario">
+                        <div class="form-group">
+                            <label>¿Cuál es el código secreto?</label>
+                            <input id="respuesta" type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <small class="form-text text-muted">Número de intentos restantes: <b id="intentosRestantes">4</b>.</small>
+                            <small id="pista1" class="form-text text-muted" hidden>Pista 1: La clave está en lo que sabes sobre mí.</small>
+                            <small id="pista2" class="form-text text-muted" hidden>Pista 2: ¿Alguna vez escuchaste del cifrado de Vigenère?</small>
+                        </div>
+                        <button type="submit" class="btn btn-success" onclick="btnEnviar()">Enviar.</button>
+                    </form>
+                </div>
+
+                <div id="recompensa" class="col-12" hidden>
+                    <div class="alert alert-success">
+                        <p>¡Lo conseguiste! Tu recompensa es la foto de un gatito.</p>
+                        <img class="img-fluid" src="https://i.ytimg.com/vi/_7bFXWNfXTY/maxresdefault.jpg" alt="Foto de un gatito.">
+                    </div>
+                </div>
+
+                <div id="gameOver" class="col-12" hidden>
+                    <div class="alert alert-danger">
+                        <p>Ya no tienes intentos restantes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container-fluid bg-secondary border">
+            <p class="text-center text-light"><a class="text-light" href="sobre-mi.html">Sobre mí.</a> Copyright 2020
+            </p>
+        </div>
+    </footer>
+
+    <!-- Dependencias de JavaScript de Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+
+    <!-- Código adivinanza JavaScript -->
+    <script>
+        var númeroIntentosRestantes = parseInt(localStorage.getItem("númeroIntentosRestantes"));
+        var acertó = localStorage.getItem("acertó") == "true";
+
+        if (númeroIntentosRestantes == null || isNaN(númeroIntentosRestantes) || númeroIntentosRestantes == undefined) {
+            // Si no hay un número de intentos guardado, inicializo la adivinanza.
+            númeroIntentosRestantes = 4;
+            localStorage.setItem("númeroIntentosRestantes", númeroIntentosRestantes);
+            localStorage.setItem("acertó", false);
+        } else {
+            // De otro modo, actualizo el campo de intentos.
+            actualizarNúmeroIntentos();
+        }
+        
+        // Controlo si terminó el juego.
+        if (acertó) {
+            mostrarRecompensa();
+            ocultarFormulario();
+        } else {
+            switch(númeroIntentosRestantes){
+                case 0:
+                    ocultarFormulario();
+                    mostrarGameOver();
+                    break;
+                case 1:
+                    mostrarPista2();
+                case 2:
+                    mostrarPista1();
+                    break;
+            }
+        }
+
+        /**
+         * Se encarga de controlar la lógica del botón enviar. 
+         */
+        function btnEnviar() {
+            var respuesta = obtenerRespuesta();
+
+            controlarRespuesta(respuesta);
+        }
+
+        /**
+         * Verifica si la respuesta ingresada es correcta, y se 
+         * encarga de actualizar todos los campos y variables asociados.
+         */
+        function controlarRespuesta(respuesta) {
+            if (respuesta == "") {
+                return true;
+            } else if (esRespuestaCorrecta(respuesta)) {
+                localStorage.setItem("acertó", true);
+                return true;
+            } else {
+                númeroIntentosRestantes --;
+                actualizarNúmeroIntentos();
+                limpiarTxtRespuesta();
+                return false;
+            }
+        }
+
+        /**
+         * Verifica si la respuesta ingresada es correcta.
+         */
+        function esRespuestaCorrecta(respuesta) {
+            var códigoSecreto = "procrastinar";
+
+            respuesta = respuesta.toLowerCase();
+            
+            if(respuesta == códigoSecreto) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        /**
+         * Se encarga de obtener el elemento asociado a la respuesta.
+         */
+        function obtenerRespuesta() {
+            return document.getElementById("respuesta").value;
+        }
+
+        /**
+         * Busca el elemento asociado a la recompensa y lo muestra.
+         */
+        function mostrarRecompensa() {
+            var divRecompensa = document.getElementById("recompensa");
+            divRecompensa.hidden = false;
+        }
+        /**
+         * Busca el formulario y lo oculta.
+         */
+        function ocultarFormulario() {
+            var form = document.getElementById("formulario");
+            form.hidden = true;
+        }
+
+        /**
+         * Actualiza el texto donde se muestran los intentos restantes,
+         * y el localStorage de forma que coincida con la variable almacenada.
+         */
+        function actualizarNúmeroIntentos() {
+            var lblIntentosRestantes = document.getElementById("intentosRestantes");
+            lblIntentosRestantes.innerHTML = númeroIntentosRestantes.toString();
+            localStorage.setItem("númeroIntentosRestantes", númeroIntentosRestantes);
+        }
+
+        /**
+         * Se encarga de limpiar el campo de texto de la respuesta.
+         */
+        function limpiarTxtRespuesta() {
+            var txtRespuesta = document.getElementById("respuesta");
+            txtRespuesta.value = "";
+        }
+
+        /**
+         * Busca el elemento asociado al Game Over y lo muestra.
+         */
+        function mostrarGameOver() {
+            var divGameOver = document.getElementById("gameOver");
+            divGameOver.hidden = false;
+        }
+
+        /**
+         * Busca el elemento de la primera pista, y lo muestra.
+         */
+        function mostrarPista1() {
+            var lblPista1 = document.getElementById("pista1");
+            lblPista1.hidden = false;
+        }
+
+        /**
+         * Busca el elemento de la segunda pista, y lo muestra.
+         */
+         function mostrarPista2() {
+            var lblPista2 = document.getElementById("pista2");
+            lblPista2.hidden = false;
+        }
+
+    </script>
+</body>
+
+</html>
